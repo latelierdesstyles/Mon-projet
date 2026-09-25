@@ -11,6 +11,40 @@
   :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
   body{ margin:0; background:#f8f9fa; color:#1f2937; font-family:'Inter',system-ui,sans-serif; }
   .page.hidden{ display:none; }
+
+  /* Style pour le zoom photo plein écran */
+  .image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .modal-content-img {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 12px;
+    object-fit: contain;
+    animation: zoomIn 0.2s ease-out;
+  }
+  .close-modal-img {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  @keyframes zoomIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
 </style>
 </head>
 <body>
@@ -70,6 +104,7 @@
 
 <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-500">L'Atelier des Styles — Alger, Algérie.</footer>
 
+<!-- Modal de Commande -->
 <div id="orderModal" class="hidden fixed inset-0 z-50 items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4" onclick="closeOrderModal()">
   <div class="bg-white border border-gray-200 w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl max-h-[92vh] overflow-y-auto" style="padding-bottom:env(safe-area-inset-bottom,0px)" onclick="event.stopPropagation()">
     <div class="p-5 sm:p-6">
@@ -113,6 +148,12 @@
   </div>
 </div>
 
+<!-- Modal Zoom Photo -->
+<div id="imageModal" class="image-modal" onclick="closeImageModal()">
+  <span class="close-modal-img">&times;</span>
+  <img class="modal-content-img" id="imgFull" alt="Zoom Produit">
+</div>
+
 <div id="successToast" class="hidden fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4">
   <div class="bg-white border rounded-xl px-5 py-4 text-sm max-w-sm shadow-lg text-gray-800" style="border-color:#8ea492; margin-bottom:env(safe-area-inset-bottom,0px)">
     Commande confirmée ! Nous allons vous appeler pour valider l'expédition.
@@ -132,7 +173,7 @@ const PRODUCTS = [
   { id:"h-haut-1", gender:"homme", section:"hauts",     name:"Hoodie Mi-Saison Homme",       colors:["Noir","Bordeaux","Gris Chiné"],stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover.jpg", locked:false },
   { id:"h-haut-2", gender:"homme", section:"hauts",     name:"T-shirt Simple Homme",         colors:["Noir","Blanc","Kaki"],         stock:"En stock", price1:1800, price2:3000, img:"t-shirt.jpg", locked:false },
   { id:"h-ens-1",  gender:"homme", section:"ensembles", name:"Ensemble Jogging Homme",       colors:["Noir","Kaki"],                 stock:"Bientôt disponible", price1:5500, price2:9500, img:"2-piece.jpg", locked:true },
-  { id:"f-bas-1",  gender:"femme", section:"bas",       name:"Baggy Jogger Femme (Simple)",  colors:["Noir","Beige","Kaki"],         stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple.jpg", locked:false },
+  { id:"f-bas-1",  gender:"femme", section:"bas",       name:"Baggy Jogger Femme (Simple)", colors:["Noir","Beige","Kaki"],         stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple.jpg", locked:false },
   { id:"f-bas-2",  gender:"femme", section:"bas",       name:"Baggy Nike Femme",             colors:["Noir","Blanc","Rose Pâle"],    stock:"En stock", price1:3200, price2:5500, img:"Nike_oversized_baggy.jpg", locked:false },
   { id:"f-bas-3",  gender:"femme", section:"bas",       name:"Cargo Femme",                  colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"cargo_pants.jpg", locked:false },
   { id:"f-haut-1", gender:"femme", section:"hauts",     name:"Hoodie Mi-Saison Femme",       colors:["Noir","Bordeaux","Blanc"],     stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover.jpg", locked:false },
@@ -165,8 +206,8 @@ function cardHTML(p){
   return '<div class="relative rounded-xl border border-gray-200 bg-white overflow-hidden">'
     + '<div class="relative h-56 sm:h-60 bg-gray-100">'
     + overlay
-    + '<span class="absolute top-3 left-3 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full" style="background:#5f7a63">' + p.stock + '</span>'
-    + '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">'
+    + '<span class="absolute top-3 left-3 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full z-10" style="background:#5f7a63">' + p.stock + '</span>'
+    + '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" onclick="openImageModal(\'' + p.img + '\')" class="absolute inset-0 w-full h-full object-cover cursor-pointer" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">'
     + '<div class="absolute inset-0 hidden items-center justify-center text-gray-300">' + ICON_HANGER + '</div>'
     + '</div>'
     + '<div class="p-4">'
@@ -262,6 +303,18 @@ function openOrderModal(id){
 function closeOrderModal(){
   document.getElementById('orderModal').classList.add('hidden');
   document.getElementById('orderModal').classList.remove('flex');
+}
+
+/* Fonctions pour le Zoom Photo */
+function openImageModal(src){
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('imgFull');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+
+function closeImageModal(){
+  document.getElementById('imageModal').style.display = 'none';
 }
 
 function updateTotal(){
