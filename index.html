@@ -1,468 +1,329 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Atelier des Styles | Streetwear & Outdoor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .badge-gradient { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Animation du Modal */
-        #checkout-modal { transition: opacity 0.3s ease; }
-        #checkout-content { transition: transform 0.3s ease; }
-        .modal-open #checkout-modal { opacity: 1; pointer-events: auto; }
-        .modal-open #checkout-content { transform: translateY(0); }
-        .modal-closed #checkout-modal { opacity: 0; pointer-events: none; }
-        .modal-closed #checkout-content { transform: translateY(100%); }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>L'Atelier des Styles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+  body{ margin:0; background:#f8f9fa; color:#1f2937; font-family:'Inter',system-ui,sans-serif; }
+  .page.hidden{ display:none; }
+</style>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans antialiased pb-20">
+<body>
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-40 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-black text-xl text-white shadow-lg shadow-red-600/30">A</div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tight text-white uppercase">L'Atelier <span class="text-red-500">des Styles</span></h1>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- BANNIÈRE RÉASSURANCE -->
-    <section class="bg-gray-800/50 border-b border-gray-800 py-2">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between text-[10px] sm:text-xs font-medium text-gray-400">
-            <span><i class="fas fa-truck-fast text-red-500 mr-1"></i> 58 Wilayas</span>
-            <span><i class="fas fa-hand-holding-dollar text-emerald-500 mr-1"></i> Paiement Livraison</span>
-            <span><i class="fas fa-rotate text-blue-500 mr-1"></i> Échange garanti</span>
-        </div>
-    </section>
-
-    <!-- HERO SECTION -->
-    <section class="relative py-8 px-4 text-center max-w-4xl mx-auto">
-        <span class="inline-block px-3 py-1 bg-gray-800 text-gray-300 text-xs font-bold rounded-full mb-3 border border-gray-700">DROP AUTOMNE 2026</span>
-        <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-            Nouvelle Collection <span class="text-red-500">Streetwear</span>
-        </h2>
-    </section>
-
-    <!-- NAVIGATION PAR GENRE (HOMME / FEMME) -->
-    <div class="max-w-xl mx-auto px-4 mb-6">
-        <div class="flex bg-gray-900 p-1 rounded-2xl border border-gray-800 shadow-inner">
-            <button onclick="setGender('homme')" id="btn-homme" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all bg-gray-700 text-white shadow-md">👨 HOMME</button>
-            <button onclick="setGender('femme')" id="btn-femme" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all text-gray-400 hover:text-white">👩 FEMME</button>
-        </div>
+<header class="bg-slate-900" style="padding-top:env(safe-area-inset-top,0px)">
+  <div class="max-w-3xl mx-auto px-4 py-6 text-center">
+    <div class="w-20 h-20 rounded-full mx-auto overflow-hidden border-4" style="border-color:#8ea492">
+      <img src="logo.png.jpeg" alt="L'Atelier des Styles" class="w-full h-full object-cover">
     </div>
-
-    <!-- NAVIGATION PAR CATÉGORIE (BAS / HAUTS / ENSEMBLES) -->
-    <div class="max-w-7xl mx-auto px-4 mb-8">
-        <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 hide-scrollbar" id="category-filters">
-            <button onclick="setCategory('bas')" id="btn-cat-bas" class="cat-btn active bg-red-600 text-white text-xs font-bold px-6 py-2.5 rounded-full border border-red-500 whitespace-nowrap">👖 Bas & Joggings</button>
-            <button onclick="setCategory('hauts')" id="btn-cat-hauts" class="cat-btn bg-gray-800 text-gray-300 text-xs font-bold px-6 py-2.5 rounded-full border border-gray-700 whitespace-nowrap">👕 Hauts & Hoodies</button>
-            <button onclick="setCategory('ensembles')" id="btn-cat-ensembles" class="cat-btn bg-gray-800 text-gray-300 text-xs font-bold px-6 py-2.5 rounded-full border border-gray-700 whitespace-nowrap">🏃‍♂️ Ensembles</button>
-        </div>
+    <h1 class="text-white font-extrabold text-2xl mt-3 tracking-tight">L'Atelier des Styles</h1>
+    <p class="text-sm mt-1" style="color:#8ea492">Modes &bull; Saisons &bull; Performance</p>
+    <div class="inline-flex items-center gap-3 bg-white/10 rounded-full px-4 py-2 mt-4 text-xs text-white">
+      <span class="flex items-center gap-1.5">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.11 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+        0780236967
+      </span>
+      <span class="w-px h-3.5 bg-white/30"></span>
+      <span class="flex items-center gap-1.5">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        latelierdesstylesdz@gmail.com
+      </span>
     </div>
+  </div>
+</header>
 
-    <!-- CATALOGUE PRODUITS -->
-    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="product-grid">
-        
-        <!-- ================= BAS ================= -->
-        <!-- Baggy Jogger -->
-        <div class="product-card bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden group" data-gender="homme femme" data-cat="bas">
-            <div class="relative aspect-[4/5] bg-gray-800">
-                <span class="absolute top-3 left-3 z-10 badge-gradient text-white text-[10px] font-black uppercase px-2 py-1 rounded shadow-lg">Pack Dispo</span>
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=Baggy+Jogger+Noir/Gris" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4">
-                <h3 class="text-lg font-black text-white uppercase">Baggy Jogger Simple</h3>
-                <p class="text-xs text-gray-400 mt-1">Coupe large, gris/noir, confort absolu.</p>
-                <div class="mt-3 flex justify-between items-end">
-                    <div>
-                        <div class="text-[10px] text-gray-500">1 Pièce</div>
-                        <div class="text-xl font-black text-white">2 500 DA</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-[10px] text-red-400 font-bold">Promo 2 Pièces</div>
-                        <div class="text-md font-black text-red-400">4 000 DA</div>
-                    </div>
-                </div>
-                <button onclick="openModal('Baggy Jogger Simple', 2500, true, ['Noir', 'Gris'])" class="mt-4 w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition">COMMANDER</button>
-            </div>
-        </div>
-
-        <!-- Baggy Nike -->
-        <div class="product-card bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden group" data-gender="homme femme" data-cat="bas">
-            <div class="relative aspect-[4/5] bg-gray-800">
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=Baggy+Nike" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4">
-                <h3 class="text-lg font-black text-white uppercase">Baggy Nike & Polo</h3>
-                <p class="text-xs text-gray-400 mt-1">Streetwear Edition, Gris/Noir.</p>
-                <div class="mt-3">
-                    <div class="text-xl font-black text-white">2 600 DA</div>
-                </div>
-                <button onclick="openModal('Baggy Nike & Polo', 2600, true, ['Noir', 'Gris'])" class="mt-4 w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition">COMMANDER</button>
-            </div>
-        </div>
-
-        <!-- Cargo -->
-        <div class="product-card bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden group" data-gender="homme femme" data-cat="bas">
-            <div class="relative aspect-[4/5] bg-gray-800">
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=Pantalon+Cargo" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4">
-                <h3 class="text-lg font-black text-white uppercase">Pantalon Cargo Utility</h3>
-                <p class="text-xs text-gray-400 mt-1">Multi-poches, résistant.</p>
-                <div class="mt-3">
-                    <div class="text-xl font-black text-white">3 000 DA</div>
-                </div>
-                <button onclick="openModal('Pantalon Cargo Utility', 3000, false, ['Noir', 'Beige', 'Kaki'])" class="mt-4 w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition">COMMANDER</button>
-            </div>
-        </div>
-
-        <!-- ================= HAUTS ================= -->
-        <!-- Hoodie Mi-Saison -->
-        <div class="product-card bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden group hidden" data-gender="homme femme" data-cat="hauts">
-            <div class="relative aspect-[4/5] bg-gray-800">
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=Hoodie+Mi-Saison" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4">
-                <h3 class="text-lg font-black text-white uppercase">Hoodie Mi-Saison</h3>
-                <p class="text-xs text-gray-400 mt-1">Molleton léger, coupe oversize.</p>
-                <div class="mt-3">
-                    <div class="text-xl font-black text-white">3 500 DA</div>
-                </div>
-                <button onclick="openModal('Hoodie Mi-Saison', 3500, false, ['Noir', 'Gris', 'Bleu Nuit'])" class="mt-4 w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition">COMMANDER</button>
-            </div>
-        </div>
-
-        <!-- T-Shirt Simple (Homme Seulement) -->
-        <div class="product-card bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden group hidden" data-gender="homme" data-cat="hauts">
-            <div class="relative aspect-[4/5] bg-gray-800">
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=T-Shirt+Simple" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4">
-                <h3 class="text-lg font-black text-white uppercase">T-Shirt Simple Oversize</h3>
-                <p class="text-xs text-gray-400 mt-1">100% Coton épais.</p>
-                <div class="mt-3">
-                    <div class="text-xl font-black text-white">1 500 DA</div>
-                </div>
-                <button onclick="openModal('T-Shirt Simple Oversize', 1500, false, ['Noir', 'Blanc'])" class="mt-4 w-full bg-white text-black font-black py-3 rounded-xl hover:bg-gray-200 transition">COMMANDER</button>
-            </div>
-        </div>
-
-        <!-- ================= ENSEMBLES (BIENTÔT DISPO) ================= -->
-        <div class="product-card bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hidden relative" data-gender="homme" data-cat="ensembles">
-            <div class="absolute inset-0 bg-gray-950/70 backdrop-blur-sm z-20 flex flex-col items-center justify-center">
-                <i class="fas fa-lock text-3xl text-gray-500 mb-2"></i>
-                <span class="text-white font-black uppercase tracking-widest">Bientôt Disponible</span>
-                <span class="text-xs text-gray-400 mt-1">Collection Hiver 2026</span>
-            </div>
-            <div class="relative aspect-[4/5] bg-gray-800 opacity-50">
-                <img src="https://via.placeholder.com/600x750/1f2937/ffffff?text=Ensemble+Sport" class="w-full h-full object-cover grayscale">
-            </div>
-            <div class="p-4 opacity-50">
-                <h3 class="text-lg font-black text-white uppercase">Ensemble Sport Liseré</h3>
-                <div class="mt-3"><div class="text-xl font-black text-white">4 500 DA</div></div>
-                <button class="mt-4 w-full bg-gray-700 text-gray-400 font-black py-3 rounded-xl cursor-not-allowed">INDISPONIBLE</button>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- ================= MODAL DE COMMANDE (CHECKOUT COD) ================= -->
-    <div id="checkout-modal" class="fixed inset-0 z-50 modal-closed flex items-end sm:items-center justify-center">
-        <!-- Overlay fond noir -->
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
-        
-        <!-- Contenu du Modal -->
-        <div id="checkout-content" class="relative bg-gray-900 w-full sm:w-[500px] max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-gray-700 shadow-2xl flex flex-col">
-            
-            <div class="sticky top-0 bg-gray-900 border-b border-gray-800 p-4 flex justify-between items-center z-10">
-                <h2 class="text-lg font-black text-white uppercase">Finaliser la commande</h2>
-                <button onclick="closeModal()" class="w-8 h-8 bg-gray-800 rounded-full text-gray-400 hover:text-white flex justify-center items-center"><i class="fas fa-times"></i></button>
-            </div>
-
-            <div class="p-5 flex-1">
-                <div class="bg-gray-800 p-3 rounded-xl mb-5 flex items-center gap-4 border border-gray-700">
-                    <div class="w-16 h-16 bg-gray-700 rounded-lg flex-shrink-0 bg-cover bg-center" id="modal-img" style="background-image: url('https://via.placeholder.com/150');"></div>
-                    <div>
-                        <h3 id="modal-product-name" class="font-bold text-white text-sm">Nom du produit</h3>
-                        <p id="modal-product-price" class="text-red-400 font-black">0 DA</p>
-                    </div>
-                </div>
-
-                <form id="order-form" onsubmit="submitOrder(event)" class="space-y-4">
-                    <!-- Options Produit -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="text-[10px] text-gray-400 uppercase font-bold ml-1">Couleur</label>
-                            <select id="input-color" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required></select>
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-gray-400 uppercase font-bold ml-1">Taille</label>
-                            <select id="input-size" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="pack-selector" class="hidden">
-                        <label class="text-[10px] text-gray-400 uppercase font-bold ml-1">Quantité / Offre</label>
-                        <select id="input-qty" onchange="calculateTotal()" class="w-full bg-gray-800 border border-red-500 text-white text-sm rounded-xl p-3 outline-none">
-                            <option value="1">1 Pièce (Prix normal)</option>
-                            <option value="2">Pack 2 Pièces (Prix réduit)</option>
-                        </select>
-                    </div>
-
-                    <!-- Infos Client -->
-                    <div class="space-y-3 pt-3 border-t border-gray-800">
-                        <input type="text" id="input-name" placeholder="Nom et Prénom" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required>
-                        <input type="tel" id="input-phone" placeholder="Numéro de téléphone (ex: 06...)" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required>
-                        
-                        <div class="grid grid-cols-2 gap-3">
-                            <select id="input-wilaya" onchange="calculateTotal()" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required>
-                                <option value="" disabled selected>Sélectionner Wilaya</option>
-                                <!-- Les wilayas seront injectées par JS -->
-                            </select>
-                            <input type="text" id="input-commune" placeholder="Commune" class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl p-3 focus:border-red-500 outline-none" required>
-                        </div>
-
-                        <!-- Mode de livraison -->
-                        <div class="bg-gray-800 p-3 rounded-xl border border-gray-700 mt-2">
-                            <label class="text-[10px] text-gray-400 uppercase font-bold mb-2 block">Mode de livraison</label>
-                            <div class="flex gap-4">
-                                <label class="flex items-center gap-2 text-sm text-gray-200 cursor-pointer">
-                                    <input type="radio" name="delivery" value="domicile" onchange="calculateTotal()" class="accent-red-500" checked> À Domicile
-                                </label>
-                                <label class="flex items-center gap-2 text-sm text-gray-200 cursor-pointer">
-                                    <input type="radio" name="delivery" value="bureau" onchange="calculateTotal()" class="accent-red-500"> Bureau / Stop Desk
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Total et Bouton -->
-                    <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 mt-4">
-                        <div class="flex justify-between text-sm text-gray-400 mb-1">
-                            <span>Sous-total:</span> <span id="summary-subtotal">0 DA</span>
-                        </div>
-                        <div class="flex justify-between text-sm text-gray-400 mb-2 pb-2 border-b border-gray-800">
-                            <span>Livraison:</span> <span id="summary-shipping">-- DA</span>
-                        </div>
-                        <div class="flex justify-between text-lg font-black text-white">
-                            <span>TOTAL:</span> <span id="summary-total" class="text-red-500">0 DA</span>
-                        </div>
-                    </div>
-
-                    <button type="submit" id="btn-submit" class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-gray-200 transition mt-2 flex items-center justify-center gap-2">
-                        CONFIRMER MA COMMANDE <i class="fas fa-check-circle"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+<div class="bg-white border-b border-gray-200 sticky top-0 z-30">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div id="mainTabs" class="flex gap-1 bg-gray-100 rounded-full p-1">
+      <button data-main="tous" onclick="selectMain('tous')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Tous</button>
+      <button data-main="homme" onclick="selectMain('homme')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Homme</button>
+      <button data-main="femme" onclick="selectMain('femme')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Femme</button>
     </div>
+    <div class="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 w-full sm:w-64">
+      <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input placeholder="Rechercher un article..." class="bg-transparent outline-none text-sm w-full text-gray-700 placeholder:text-gray-400">
+    </div>
+  </div>
+  <div id="subtabs-homme" class="hidden flex-wrap gap-2 max-w-6xl mx-auto px-4 sm:px-6 pb-3">
+    <button data-sub="bas" onclick="selectSub('bas')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Bas</button>
+    <button data-sub="hauts" onclick="selectSub('hauts')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Hauts</button>
+    <button data-sub="ensembles" onclick="selectSub('ensembles')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Ensembles</button>
+  </div>
+  <div id="subtabs-femme" class="hidden flex-wrap gap-2 max-w-6xl mx-auto px-4 sm:px-6 pb-3">
+    <button data-sub="bas" onclick="selectSub('bas')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Bas</button>
+    <button data-sub="hauts" onclick="selectSub('hauts')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Hauts</button>
+  </div>
+</div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // ================= CONFIGURATION TELEGRAM =================
-        // Remplace par tes clés générées via @BotFather et @userinfobot
-        const BOT_TOKEN = "TON_BOT_TOKEN_ICI"; 
-        const CHAT_ID = "TON_CHAT_ID_ICI";
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+  <div id="page-tous" class="page hidden"><div id="grid-tous" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div></div>
+  <div id="page-h-bas" class="page hidden"><h2 class="font-bold text-lg mb-4">Bas Homme</h2><div id="grid-h-bas" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
+  <div id="page-h-hauts" class="page hidden"><h2 class="font-bold text-lg mb-4">Hauts Homme</h2><div id="grid-h-hauts" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
+  <div id="page-h-ens" class="page hidden"><h2 class="font-bold text-lg mb-4">Ensembles Homme</h2><div id="grid-h-ens" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-md"></div></div>
+  <div id="page-f-bas" class="page hidden"><h2 class="font-bold text-lg mb-4">Bas Femme</h2><div id="grid-f-bas" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
+  <div id="page-f-hauts" class="page hidden"><h2 class="font-bold text-lg mb-4">Hauts Femme</h2><div id="grid-f-hauts" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
+</main>
 
-        // ================= DONNÉES WILAYAS (Tarifs moyens) =================
-        const wilayas = [
-            { id: "1", name: "01 - Adrar", dom: 1200, desk: 700 }, { id: "2", name: "02 - Chlef", dom: 600, desk: 350 }, { id: "3", name: "03 - Laghouat", dom: 850, desk: 500 }, { id: "4", name: "04 - Oum El Bouaghi", dom: 750, desk: 450 }, { id: "5", name: "05 - Batna", dom: 750, desk: 450 }, { id: "6", name: "06 - Béjaïa", dom: 600, desk: 350 }, { id: "7", name: "07 - Biskra", dom: 850, desk: 500 }, { id: "8", name: "08 - Béchar", dom: 1000, desk: 600 }, { id: "9", name: "09 - Blida", dom: 500, desk: 300 }, { id: "10", name: "10 - Bouira", dom: 500, desk: 300 },
-            { id: "11", name: "11 - Tamanrasset", dom: 1500, desk: 900 }, { id: "12", name: "12 - Tébessa", dom: 800, desk: 450 }, { id: "13", name: "13 - Tlemcen", dom: 750, desk: 450 }, { id: "14", name: "14 - Tiaret", dom: 750, desk: 450 }, { id: "15", name: "15 - Tizi Ouzou", dom: 400, desk: 250 }, { id: "16", name: "16 - Alger", dom: 500, desk: 300 }, { id: "17", name: "17 - Djelfa", dom: 800, desk: 450 }, { id: "18", name: "18 - Jijel", dom: 650, desk: 400 }, { id: "19", name: "19 - Sétif", dom: 650, desk: 400 }, { id: "20", name: "20 - Saïda", dom: 750, desk: 450 },
-            { id: "21", name: "21 - Skikda", dom: 700, desk: 400 }, { id: "22", name: "22 - Sidi Bel Abbès", dom: 750, desk: 450 }, { id: "23", name: "23 - Annaba", dom: 750, desk: 400 }, { id: "24", name: "24 - Guelma", dom: 750, desk: 400 }, { id: "25", name: "25 - Constantine", dom: 700, desk: 400 }, { id: "26", name: "26 - Médéa", dom: 600, desk: 350 }, { id: "27", name: "27 - Mostaganem", dom: 700, desk: 400 }, { id: "28", name: "28 - M'Sila", dom: 700, desk: 400 }, { id: "29", name: "29 - Mascara", dom: 750, desk: 450 }, { id: "30", name: "30 - Ouargla", dom: 900, desk: 550 },
-            { id: "31", name: "31 - Oran", dom: 700, desk: 400 }, { id: "32", name: "32 - El Bayadh", dom: 900, desk: 550 }, { id: "33", name: "33 - Illizi", dom: 1500, desk: 900 }, { id: "34", name: "34 - Bordj Bou Arreridj", dom: 600, desk: 350 }, { id: "35", name: "35 - Boumerdès", dom: 500, desk: 300 }, { id: "36", name: "36 - El Tarf", dom: 800, desk: 450 }, { id: "37", name: "37 - Tindouf", dom: 1500, desk: 900 }, { id: "38", name: "38 - Tissemsilt", dom: 700, desk: 400 }, { id: "39", name: "39 - El Oued", dom: 900, desk: 550 }, { id: "40", name: "40 - Khenchela", dom: 800, desk: 450 },
-            { id: "41", name: "41 - Souk Ahras", dom: 800, desk: 450 }, { id: "42", name: "42 - Tipaza", dom: 500, desk: 300 }, { id: "43", name: "43 - Mila", dom: 650, desk: 400 }, { id: "44", name: "44 - Aïn Defla", dom: 600, desk: 350 }, { id: "45", name: "45 - Naâma", dom: 900, desk: 550 }, { id: "46", name: "46 - Aïn Témouchent", dom: 750, desk: 450 }, { id: "47", name: "47 - Ghardaïa", dom: 900, desk: 550 }, { id: "48", name: "48 - Relizane", dom: 700, desk: 400 },
-            { id: "49", name: "49 à 58 - Sud & Nouvelles Wilayas", dom: 1200, desk: 700 }
-        ];
+<footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-500">L'Atelier des Styles — Alger, Algérie.</footer>
 
-        // Remplir le select des wilayas
-        const wilayaSelect = document.getElementById('input-wilaya');
-        wilayas.forEach(w => {
-            let option = document.createElement('option');
-            option.value = w.id;
-            option.text = w.name;
-            option.dataset.dom = w.dom;
-            option.dataset.desk = w.desk;
-            wilayaSelect.appendChild(option);
-        });
+<div id="orderModal" class="hidden fixed inset-0 z-50 items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4" onclick="closeOrderModal()">
+  <div class="bg-white border border-gray-200 w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl max-h-[92vh] overflow-y-auto" style="padding-bottom:env(safe-area-inset-bottom,0px)" onclick="event.stopPropagation()">
+    <div class="p-5 sm:p-6">
+      <div class="flex justify-between items-start mb-4">
+        <h2 class="font-bold text-base" id="modalProductName">Commander</h2>
+        <button onclick="closeOrderModal()" class="text-gray-400 hover:text-gray-900 text-xl leading-none">&times;</button>
+      </div>
 
-        // ================= LOGIQUE FILTRES =================
-        let currentGender = 'homme';
-        let currentCat = 'bas';
+      <div id="qtyOptions" class="space-y-2 mb-4"></div>
 
-        function setGender(gender) {
-            currentGender = gender;
-            document.getElementById('btn-homme').className = gender === 'homme' ? 'flex-1 py-3 text-sm font-bold rounded-xl transition-all bg-gray-700 text-white shadow-md' : 'flex-1 py-3 text-sm font-bold rounded-xl transition-all text-gray-400 hover:text-white';
-            document.getElementById('btn-femme').className = gender === 'femme' ? 'flex-1 py-3 text-sm font-bold rounded-xl transition-all bg-gray-700 text-white shadow-md' : 'flex-1 py-3 text-sm font-bold rounded-xl transition-all text-gray-400 hover:text-white';
-            filterProducts();
-        }
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="text-xs text-gray-500 block mb-1">Nom</label><input id="f_nom" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"></div>
+        <div><label class="text-xs text-gray-500 block mb-1">Prénom</label><input id="f_prenom" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"></div>
+      </div>
+      <div class="mb-3"><label class="text-xs text-gray-500 block mb-1">Téléphone</label><input id="f_tel" type="tel" placeholder="05XX XX XX XX" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"></div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="text-xs text-gray-500 block mb-1">Wilaya</label><select id="f_wilaya" onchange="updateTotal()" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"><option value="">Choisir</option></select></div>
+        <div><label class="text-xs text-gray-500 block mb-1">Commune</label><input id="f_commune" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="text-xs text-gray-500 block mb-1">Taille</label><select id="f_taille" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select></div>
+        <div><label class="text-xs text-gray-500 block mb-1">Couleur</label><select id="f_couleur" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#8ea492]"></select></div>
+      </div>
+      <div class="mb-4">
+        <label class="text-xs text-gray-500 block mb-1">Mode de livraison</label>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm cursor-pointer"><input type="radio" name="mode" value="domicile" checked onchange="updateTotal()"> À domicile</label>
+          <label class="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm cursor-pointer"><input type="radio" name="mode" value="desk" onchange="updateTotal()"> Bureau / Stop Desk</label>
+        </div>
+      </div>
 
-        function setCategory(cat) {
-            currentCat = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-red-600', 'text-white', 'border-red-500');
-                btn.classList.add('bg-gray-800', 'text-gray-300', 'border-gray-700');
-            });
-            event.currentTarget.classList.remove('bg-gray-800', 'text-gray-300', 'border-gray-700');
-            event.currentTarget.classList.add('bg-red-600', 'text-white', 'border-red-500');
-            filterProducts();
-        }
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm mb-4 space-y-1">
+        <div class="flex justify-between text-gray-500"><span>Produit</span><span id="sumProduct">&mdash;</span></div>
+        <div class="flex justify-between text-gray-500"><span>Livraison</span><span id="sumDelivery">&mdash;</span></div>
+        <div class="flex justify-between font-semibold text-gray-900 border-t border-gray-200 pt-1 mt-1"><span>Total</span><span id="sumTotal">&mdash;</span></div>
+      </div>
 
-        function filterProducts() {
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const genders = card.dataset.gender.split(' ');
-                const cat = card.dataset.cat;
-                if (genders.includes(currentGender) && cat === currentCat) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        }
+      <p id="formError" class="hidden text-red-600 text-xs mb-2"></p>
+      <button onclick="submitOrder()" id="submitBtn" class="w-full text-white font-semibold py-3.5 rounded-xl transition-colors" style="background:#5f7a63" onmouseover="this.style.background='#4d6350'" onmouseout="this.style.background='#5f7a63'">Confirmer la commande</button>
+    </div>
+  </div>
+</div>
 
-        // ================= LOGIQUE MODAL ET PRIX =================
-        let currentProduct = { name: '', price: 0, hasPack: false };
+<div id="successToast" class="hidden fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4">
+  <div class="bg-white border rounded-xl px-5 py-4 text-sm max-w-sm shadow-lg text-gray-800" style="border-color:#8ea492; margin-bottom:env(safe-area-inset-bottom,0px)">
+    Commande confirmée ! Nous allons vous appeler pour valider l'expédition.
+  </div>
+</div>
 
-        function openModal(name, price, hasPack, colors) {
-            currentProduct = { name, price, hasPack };
-            
-            document.getElementById('modal-product-name').innerText = name;
-            document.getElementById('modal-product-price').innerText = price + " DA";
-            
-            // Gestion des couleurs
-            const colorSelect = document.getElementById('input-color');
-            colorSelect.innerHTML = '';
-            colors.forEach(c => {
-                let opt = document.createElement('option');
-                opt.value = c; opt.text = c;
-                colorSelect.appendChild(opt);
-            });
+<script>
+/* ==========================================================
+   ZONE DE PERSONNALISATION
+   ========================================================== */
+const GOOGLE_SHEETS_URL = "TON_LIEN_APPS_SCRIPT_ICI";
 
-            // Gestion du pack
-            const packDiv = document.getElementById('pack-selector');
-            const qtySelect = document.getElementById('input-qty');
-            if (hasPack) {
-                packDiv.classList.remove('hidden');
-                qtySelect.value = "1";
-            } else {
-                packDiv.classList.add('hidden');
-                qtySelect.value = "1";
-            }
+const PRODUCTS = [
+  { id:"h-bas-1",  gender:"homme", section:"bas",       name:"Baggy Jogger Homme (Simple)", colors:["Noir","Kaki","Gris Chiné"],   stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple", locked:false },
+  { id:"h-bas-2",  gender:"homme", section:"bas",       name:"Baggy Nike Homme",             colors:["Noir","Blanc","Gris"],         stock:"En stock", price1:3200, price2:5500, img:"Nike_oversized_baggy", locked:false },
+  { id:"h-bas-3",  gender:"homme", section:"bas",       name:"Cargo Homme",                  colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"cargo_pants", locked:false },
+  { id:"h-haut-1", gender:"homme", section:"hauts",     name:"Hoodie Mi-Saison Homme",       colors:["Noir","Bordeaux","Gris Chiné"],stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover", locked:false },
+  { id:"h-haut-2", gender:"homme", section:"hauts",     name:"T-shirt Simple Homme",         colors:["Noir","Blanc","Kaki"],         stock:"En stock", price1:1800, price2:3000, img:"t-shirt", locked:false },
+  { id:"h-ens-1",  gender:"homme", section:"ensembles", name:"Ensemble Jogging Homme",       colors:["Noir","Kaki"],                 stock:"Bientôt disponible", price1:5500, price2:9500, img:"2-piece", locked:true },
+  { id:"f-bas-1",  gender:"femme", section:"bas",       name:"Baggy Jogger Femme (Simple)",  colors:["Noir","Beige","Kaki"],         stock:"En stock", price1:2500, price2:4000, img:"LIEN_IMAGE_BAGGY_FEMME", locked:false },
+  { id:"f-bas-2",  gender:"femme", section:"bas",       name:"Baggy Nike Femme",             colors:["Noir","Blanc","Rose Pâle"],    stock:"En stock", price1:3200, price2:5500, img:"LIEN_IMAGE_BAGGY_NIKE_FEMME", locked:false },
+  { id:"f-bas-3",  gender:"femme", section:"bas",       name:"Cargo Femme",                  colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"LIEN_IMAGE_CARGO_FEMME", locked:false },
+  { id:"f-haut-1", gender:"femme", section:"hauts",     name:"Hoodie Mi-Saison Femme",       colors:["Noir","Bordeaux","Blanc"],     stock:"En stock", price1:3500, price2:6000, img:"LIEN_IMAGE_HOODIE_FEMME", locked:false },
+];
 
-            // Réinitialiser formulaire
-            document.getElementById('order-form').reset();
-            calculateTotal();
+const ZONES = [
+  { rate:{ domicile:400, desk:300 }, wilayas:["Tizi Ouzou","Béjaïa","Bouira","Boumerdès","Alger","Blida"] },
+  { rate:{ domicile:600, desk:450 }, wilayas:["Sétif","Bordj Bou Arréridj","Jijel","Skikda","Annaba","Constantine","Guelma","Souk Ahras","Tipaza","Chlef","Mostaganem","Relizane","Aïn Defla","M'Sila","Batna","Oum El Bouaghi","Khenchela","Tébessa","Mila","El Tarf","Médéa","Tissemsilt"] },
+  { rate:{ domicile:700, desk:500 }, wilayas:["Oran","Sidi Bel Abbès","Mascara","Tiaret","Tlemcen","Saïda","Aïn Témouchent","Naâma","Djelfa","Laghouat","Ghardaïa","El Bayadh"] },
+  { rate:{ domicile:900, desk:700 }, wilayas:["Ouargla","El Oued","Touggourt","Biskra","Béchar","Adrar","Tamanrasset","Illizi","Tindouf","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès","In Salah","In Guezzam","Djanet","El M'Ghair","El Meniaa"] },
+];
+/* ========================================================== */
 
-            document.getElementById('checkout-modal').classList.remove('modal-closed');
-            document.getElementById('checkout-modal').classList.add('modal-open');
-        }
+const DELIVERY_RATES = {};
+ZONES.forEach(z => z.wilayas.forEach(w => DELIVERY_RATES[w] = z.rate));
+const WILAYAS = Object.keys(DELIVERY_RATES).sort();
 
-        function closeModal() {
-            document.getElementById('checkout-modal').classList.remove('modal-open');
-            document.getElementById('checkout-modal').classList.add('modal-closed');
-        }
+const ICON_HANGER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path d="M12 4a1.8 1.8 0 100 3.6A1.8 1.8 0 0012 4z"/><path d="M12 7.6v1.8m0 0l-8.5 5.2c-.6.4-.3 1.4.4 1.4h16.2c.7 0 1-1 .4-1.4L12 9.4z"/></svg>';
+const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-7 h-7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>';
 
-        function calculateTotal() {
-            let subtotal = currentProduct.price;
-            const qty = document.getElementById('input-qty').value;
-            
-            // Appliquer le prix pack si sélectionné (exemple: 2500 -> 4000)
-            if (qty === "2" && currentProduct.hasPack) {
-                subtotal = 4000; // Prix fixe du pack hardcodé pour l'exemple
-            }
+function cardHTML(p){
+  const overlay = p.locked
+    ? '<div class="absolute inset-0 bg-white/90 flex flex-col items-center justify-center gap-1 text-center p-3 z-10 text-gray-700">'
+      + ICON_LOCK + '<p class="font-bold text-sm mt-1">Bientôt disponible</p><p class="text-xs text-gray-500">Drop Automne</p></div>'
+    : '';
+  const orderBtn = p.locked
+    ? '<button disabled class="w-full bg-gray-200 text-gray-400 font-semibold py-2.5 rounded-lg cursor-not-allowed text-sm">Indisponible</button>'
+    : '<button onclick="openOrderModal(\'' + p.id + '\')" class="w-full text-white font-semibold py-2.5 rounded-lg transition-colors text-sm" style="background:#5f7a63" onmouseover="this.style.background=\'#4d6350\'" onmouseout="this.style.background=\'#5f7a63\'">Commander (Paiement à la livraison)</button>';
 
-            let shipping = 0;
-            const wilayaOpt = wilayaSelect.options[wilayaSelect.selectedIndex];
-            const deliveryType = document.querySelector('input[name="delivery"]:checked').value;
+  return '<div class="relative rounded-xl border border-gray-200 bg-white overflow-hidden">'
+    + '<div class="relative h-56 sm:h-60 bg-gray-100">'
+    + overlay
+    + '<span class="absolute top-3 left-3 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full" style="background:#5f7a63">' + p.stock + '</span>'
+    + '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">'
+    + '<div class="absolute inset-0 hidden items-center justify-center text-gray-300">' + ICON_HANGER + '</div>'
+    + '</div>'
+    + '<div class="p-4">'
+    + '<h3 class="font-semibold text-sm mb-1">' + p.name + '</h3>'
+    + '<p class="text-xs text-gray-500 mb-3">Tailles S &middot; M &middot; L &middot; XL &mdash; Couleurs : ' + p.colors.join(', ') + '</p>'
+    + '<div class="grid grid-cols-2 gap-2 mb-3 text-xs">'
+    + '<div class="border border-gray-200 rounded-lg px-2 py-2 text-center"><p class="text-gray-500">1 pièce</p><p class="font-semibold text-gray-900">' + p.price1 + ' DA</p></div>'
+    + '<div class="rounded-lg px-2 py-2 text-center" style="border:1px solid #8ea492; background:rgba(142,164,146,0.12)"><p style="color:#5f7a63">Pack de 2</p><p class="font-semibold text-gray-900">' + p.price2 + ' DA</p></div>'
+    + '</div>'
+    + orderBtn
+    + '</div></div>';
+}
 
-            if (wilayaOpt && wilayaOpt.value !== "") {
-                shipping = deliveryType === 'domicile' ? parseInt(wilayaOpt.dataset.dom) : parseInt(wilayaOpt.dataset.desk);
-            }
+function renderAll(){
+  document.getElementById('grid-tous').innerHTML = PRODUCTS.map(cardHTML).join('');
+  const groups = {
+    "grid-h-bas":   p => p.gender === "homme" && p.section === "bas",
+    "grid-h-hauts": p => p.gender === "homme" && p.section === "hauts",
+    "grid-h-ens":   p => p.gender === "homme" && p.section === "ensembles",
+    "grid-f-bas":   p => p.gender === "femme" && p.section === "bas",
+    "grid-f-hauts": p => p.gender === "femme" && p.section === "hauts",
+  };
+  Object.entries(groups).forEach(([id, test]) => {
+    document.getElementById(id).innerHTML = PRODUCTS.filter(test).map(cardHTML).join('');
+  });
+  document.getElementById('f_wilaya').innerHTML = '<option value="">Choisir</option>' + WILAYAS.map(w => '<option>' + w + '</option>').join('');
+}
+renderAll();
 
-            document.getElementById('summary-subtotal').innerText = subtotal + " DA";
-            document.getElementById('summary-shipping').innerText = shipping > 0 ? shipping + " DA" : "-- DA";
-            document.getElementById('summary-total').innerText = (subtotal + shipping) + " DA";
-        }
+let currentMain = null;
+let currentSub = null;
 
-        // ================= SOUMISSION TELEGRAM =================
-        function submitOrder(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('btn-submit');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
-            btn.disabled = true;
+function selectMain(key){
+  currentMain = key;
+  document.querySelectorAll('#mainTabs .maintab').forEach(btn => {
+    const active = btn.dataset.main === key;
+    btn.className = 'maintab px-4 py-1.5 rounded-full text-sm font-medium ' + (active ? 'bg-white shadow text-gray-900' : 'text-gray-500');
+  });
+  document.getElementById('subtabs-homme').classList.toggle('hidden', key !== 'homme');
+  document.getElementById('subtabs-homme').classList.toggle('flex', key === 'homme');
+  document.getElementById('subtabs-femme').classList.toggle('hidden', key !== 'femme');
+  document.getElementById('subtabs-femme').classList.toggle('flex', key === 'femme');
 
-            // Récupération des données
-            const name = document.getElementById('input-name').value;
-            const phone = document.getElementById('input-phone').value;
-            const wilayaName = wilayaSelect.options[wilayaSelect.selectedIndex].text;
-            const commune = document.getElementById('input-commune').value;
-            const delivery = document.querySelector('input[name="delivery"]:checked').value.toUpperCase();
-            
-            const color = document.getElementById('input-color').value;
-            const size = document.getElementById('input-size').value;
-            const qty = document.getElementById('input-qty').value;
-            const total = document.getElementById('summary-total').innerText;
+  ['page-tous','page-h-bas','page-h-hauts','page-h-ens','page-f-bas','page-f-hauts'].forEach(id => document.getElementById(id).classList.add('hidden'));
 
-            // Construction du message pour Telegram
-            const message = `
-🚨 *NOUVELLE COMMANDE* 🚨
+  if (key === 'tous'){
+    document.getElementById('page-tous').classList.remove('hidden');
+  } else {
+    selectSub('bas');
+  }
+}
 
-📦 *Produit:* ${currentProduct.name}
-🎨 *Couleur:* ${color} | 📏 *Taille:* ${size}
-🔢 *Quantité/Offre:* ${qty == "2" ? "Pack 2 Pièces" : "1 Pièce"}
+function selectSub(sub){
+  currentSub = sub;
+  ['page-h-bas','page-h-hauts','page-h-ens','page-f-bas','page-f-hauts'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.getElementById('page-tous').classList.add('hidden');
+  const pageId = 'page-' + (currentMain === 'homme' ? 'h' : 'f') + '-' + (sub === 'ensembles' ? 'ens' : sub);
+  const page = document.getElementById(pageId);
+  if (page) page.classList.remove('hidden');
+  document.querySelectorAll('#subtabs-' + currentMain + ' .subtab').forEach(btn => {
+    const active = btn.dataset.sub === sub;
+    btn.style.borderColor = active ? '#8ea492' : '#e5e7eb';
+    btn.style.background = active ? 'rgba(142,164,146,0.12)' : 'transparent';
+    btn.style.color = active ? '#5f7a63' : '#374151';
+  });
+}
 
-👤 *Client:* ${name}
-📞 *Tél:* ${phone}
-📍 *Adresse:* ${commune}, ${wilayaName}
-🚚 *Livraison:* ${delivery}
+selectMain('tous');
 
-💰 *TOTAL À PAYER:* ${total}
-            `;
+let currentProduct = null;
+let currentQty = 1;
 
-            // Envoi via l'API Telegram
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                if(response.ok) {
-                    alert("✅ Commande validée avec succès ! Nous vous appellerons très vite.");
-                    closeModal();
-                } else {
-                    alert("❌ Erreur lors de l'envoi de la commande. Veuillez nous contacter sur WhatsApp.");
-                }
-            })
-            .catch(error => {
-                alert("❌ Erreur de connexion.");
-            })
-            .finally(() => {
-                btn.innerHTML = 'CONFIRMER MA COMMANDE <i class="fas fa-check-circle"></i>';
-                btn.disabled = false;
-            });
-        }
-    </script>
+function setQty(n){ currentQty = n; updateTotal(); }
+
+function openOrderModal(id){
+  currentProduct = PRODUCTS.find(p => p.id === id);
+  currentQty = 1;
+  document.getElementById('modalProductName').textContent = currentProduct.name;
+  document.getElementById('qtyOptions').innerHTML =
+    '<label class="flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer text-sm" style="border:1px solid #8ea492; background:rgba(142,164,146,0.12)">'
+    + '<span class="flex items-center gap-2"><input type="radio" name="qty" checked onchange="setQty(1)"> 1 pièce</span>'
+    + '<span class="font-semibold">' + currentProduct.price1 + ' DA</span></label>'
+    + '<label class="flex items-center justify-between px-3 py-2.5 rounded-lg border border-gray-200 cursor-pointer text-sm">'
+    + '<span class="flex items-center gap-2"><input type="radio" name="qty" onchange="setQty(2)"> Pack de 2</span>'
+    + '<span class="font-semibold" style="color:#5f7a63">' + currentProduct.price2 + ' DA</span></label>';
+  document.getElementById('f_couleur').innerHTML = currentProduct.colors.map(c => '<option>' + c + '</option>').join('');
+  document.getElementById('formError').classList.add('hidden');
+  document.getElementById('orderModal').classList.remove('hidden');
+  document.getElementById('orderModal').classList.add('flex');
+  updateTotal();
+}
+
+function closeOrderModal(){
+  document.getElementById('orderModal').classList.add('hidden');
+  document.getElementById('orderModal').classList.remove('flex');
+}
+
+function updateTotal(){
+  if (!currentProduct) return;
+  const productPrice = currentQty === 1 ? currentProduct.price1 : currentProduct.price2;
+  const wilaya = document.getElementById('f_wilaya').value;
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  const rates = DELIVERY_RATES[wilaya];
+  const fee = rates ? (mode === 'domicile' ? rates.domicile : rates.desk) : 0;
+  document.getElementById('sumProduct').textContent = productPrice + ' DA';
+  document.getElementById('sumDelivery').textContent = wilaya ? fee + ' DA' : '\u2014';
+  document.getElementById('sumTotal').textContent = wilaya ? (productPrice + fee) + ' DA' : productPrice + ' DA';
+}
+
+function submitOrder(){
+  const nom = document.getElementById('f_nom').value.trim();
+  const prenom = document.getElementById('f_prenom').value.trim();
+  const tel = document.getElementById('f_tel').value.trim();
+  const wilaya = document.getElementById('f_wilaya').value;
+  const commune = document.getElementById('f_commune').value.trim();
+  const taille = document.getElementById('f_taille').value;
+  const couleur = document.getElementById('f_couleur').value;
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  const errEl = document.getElementById('formError');
+
+  if (!nom || !prenom || !tel || !wilaya || !commune){
+    errEl.textContent = "Merci de remplir tous les champs obligatoires.";
+    errEl.classList.remove('hidden');
+    return;
+  }
+  errEl.classList.add('hidden');
+
+  const productPrice = currentQty === 1 ? currentProduct.price1 : currentProduct.price2;
+  const fee = DELIVERY_RATES[wilaya][mode === 'domicile' ? 'domicile' : 'desk'];
+  const total = productPrice + fee;
+
+  const order = {
+    nom, prenom, telephone: tel, wilaya, commune,
+    produit: currentProduct.name, taille, couleur,
+    quantite: currentQty, mode_livraison: mode === 'domicile' ? 'À domicile' : 'Bureau / Stop Desk',
+    prix_produit: productPrice, frais_livraison: fee, total,
+    date: new Date().toISOString()
+  };
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = "Envoi en cours...";
+
+  fetch(GOOGLE_SHEETS_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify(order)
+  })
+    .catch(() => {})
+    .finally(() => {
+      btn.disabled = false; btn.textContent = "Confirmer la commande";
+      closeOrderModal();
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 5000);
+    });
+}
+</script>
 </body>
 </html>
