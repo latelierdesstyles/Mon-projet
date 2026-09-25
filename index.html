@@ -10,7 +10,6 @@
 <style>
   :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
   body{ margin:0; background:#f8f9fa; color:#1f2937; font-family:'Inter',system-ui,sans-serif; }
-  .page.hidden{ display:none; }
 
   /* Style pour le zoom photo plein écran */
   .image-modal {
@@ -71,35 +70,16 @@
 </header>
 
 <div class="bg-white border-b border-gray-200 sticky top-0 z-30">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-    <div id="mainTabs" class="flex gap-1 bg-gray-100 rounded-full p-1">
-      <button data-main="tous" onclick="selectMain('tous')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Tous</button>
-      <button data-main="homme" onclick="selectMain('homme')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Homme</button>
-      <button data-main="femme" onclick="selectMain('femme')" class="maintab px-4 py-1.5 rounded-full text-sm font-medium">Femme</button>
-    </div>
-    <div class="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 w-full sm:w-64">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 w-full max-w-md mx-auto">
       <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input placeholder="Rechercher un article..." class="bg-transparent outline-none text-sm w-full text-gray-700 placeholder:text-gray-400">
+      <input id="searchInput" oninput="renderProducts(this.value)" placeholder="Rechercher un article (Baggy, Cargo, Hoodie...)" class="bg-transparent outline-none text-sm w-full text-gray-700 placeholder:text-gray-400">
     </div>
-  </div>
-  <div id="subtabs-homme" class="hidden flex-wrap gap-2 max-w-6xl mx-auto px-4 sm:px-6 pb-3">
-    <button data-sub="bas" onclick="selectSub('bas')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Bas</button>
-    <button data-sub="hauts" onclick="selectSub('hauts')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Hauts</button>
-    <button data-sub="ensembles" onclick="selectSub('ensembles')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Ensembles</button>
-  </div>
-  <div id="subtabs-femme" class="hidden flex-wrap gap-2 max-w-6xl mx-auto px-4 sm:px-6 pb-3">
-    <button data-sub="bas" onclick="selectSub('bas')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Bas</button>
-    <button data-sub="hauts" onclick="selectSub('hauts')" class="subtab px-4 py-1.5 rounded-full text-xs font-medium border">Hauts</button>
   </div>
 </div>
 
 <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-  <div id="page-tous" class="page hidden"><div id="grid-tous" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div></div>
-  <div id="page-h-bas" class="page hidden"><h2 class="font-bold text-lg mb-4">Bas Homme</h2><div id="grid-h-bas" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
-  <div id="page-h-hauts" class="page hidden"><h2 class="font-bold text-lg mb-4">Hauts Homme</h2><div id="grid-h-hauts" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
-  <div id="page-h-ens" class="page hidden"><h2 class="font-bold text-lg mb-4">Ensembles Homme</h2><div id="grid-h-ens" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-md"></div></div>
-  <div id="page-f-bas" class="page hidden"><h2 class="font-bold text-lg mb-4">Bas Femme</h2><div id="grid-f-bas" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
-  <div id="page-f-hauts" class="page hidden"><h2 class="font-bold text-lg mb-4">Hauts Femme</h2><div id="grid-f-hauts" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div></div>
+  <div id="grid-products" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
 </main>
 
 <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-500">L'Atelier des Styles — Alger, Algérie.</footer>
@@ -167,16 +147,12 @@
 const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzbKhRpYx_wvWjqwAQG5KdlihDPlnjLdAXkOjpUIl3f_VdxaCd4U-XRm7Aln_yljwMe/exec";
 
 const PRODUCTS = [
-  { id:"h-bas-1",  gender:"homme", section:"bas",       name:"Baggy Jogger Homme (Simple)", colors:["Noir","Kaki","Gris Chiné"],   stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple.jpg", locked:false },
-  { id:"h-bas-2",  gender:"homme", section:"bas",       name:"Baggy Nike Homme",             colors:["Noir","Blanc","Gris"],         stock:"En stock", price1:3200, price2:5500, img:"Nike_oversized_baggy.jpg", locked:false },
-  { id:"h-bas-3",  gender:"homme", section:"bas",       name:"Cargo Homme",                  colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"cargo_pants.jpg", locked:false },
-  { id:"h-haut-1", gender:"homme", section:"hauts",     name:"Hoodie Mi-Saison Homme",       colors:["Noir","Bordeaux","Gris Chiné"],stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover.jpg", locked:false },
-  { id:"h-haut-2", gender:"homme", section:"hauts",     name:"T-shirt Simple Homme",         colors:["Noir","Blanc","Kaki"],         stock:"En stock", price1:1800, price2:3000, img:"t-shirt.jpg", locked:false },
-  { id:"h-ens-1",  gender:"homme", section:"ensembles", name:"Ensemble Jogging Homme",       colors:["Noir","Kaki"],                 stock:"Bientôt disponible", price1:5500, price2:9500, img:"2-piece.jpg", locked:true },
-  { id:"f-bas-1",  gender:"femme", section:"bas",       name:"Baggy Jogger Femme (Simple)", colors:["Noir","Beige","Kaki"],         stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple.jpg", locked:false },
-  { id:"f-bas-2",  gender:"femme", section:"bas",       name:"Baggy Nike Femme",             colors:["Noir","Blanc","Rose Pâle"],    stock:"En stock", price1:3200, price2:5500, img:"Nike_oversized_baggy.jpg", locked:false },
-  { id:"f-bas-3",  gender:"femme", section:"bas",       name:"Cargo Femme",                  colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"cargo_pants.jpg", locked:false },
-  { id:"f-haut-1", gender:"femme", section:"hauts",     name:"Hoodie Mi-Saison Femme",       colors:["Noir","Bordeaux","Blanc"],     stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover.jpg", locked:false },
+  { id:"p-1", name:"Baggy Jogger (Simple)", colors:["Noir","Kaki","Gris Chiné"],   stock:"En stock", price1:2500, price2:4000, img:"BAGGY JOGGER Simple.jpg", locked:false },
+  { id:"p-2", name:"Baggy Nike",             colors:["Noir","Blanc","Gris","Rose Pâle"], stock:"En stock", price1:3200, price2:5500, img:"Nike_oversized_baggy.jpg", locked:false },
+  { id:"p-3", name:"Cargo Pants",            colors:["Kaki","Noir","Beige"],         stock:"En stock", price1:2900, price2:4800, img:"cargo_pants.jpg", locked:false },
+  { id:"p-4", name:"Hoodie Mi-Saison",       colors:["Noir","Bordeaux","Gris Chiné","Blanc"],stock:"En stock", price1:3500, price2:6000, img:"hoodie_pullover.jpg", locked:false },
+  { id:"p-5", name:"T-shirt Oversized",      colors:["Noir","Blanc","Kaki"],         stock:"En stock", price1:1800, price2:3000, img:"t-shirt.jpg", locked:false },
+  { id:"p-6", name:"Ensemble Jogging 2-Pièces", colors:["Noir","Kaki"],               stock:"Bientôt disponible", price1:5500, price2:9500, img:"2-piece.jpg", locked:true },
 ];
 
 const ZONES = [
@@ -221,61 +197,18 @@ function cardHTML(p){
     + '</div></div>';
 }
 
-function renderAll(){
-  document.getElementById('grid-tous').innerHTML = PRODUCTS.map(cardHTML).join('');
-  const groups = {
-    "grid-h-bas":   p => p.gender === "homme" && p.section === "bas",
-    "grid-h-hauts": p => p.gender === "homme" && p.section === "hauts",
-    "grid-h-ens":   p => p.gender === "homme" && p.section === "ensembles",
-    "grid-f-bas":   p => p.gender === "femme" && p.section === "bas",
-    "grid-f-hauts": p => p.gender === "femme" && p.section === "hauts",
-  };
-  Object.entries(groups).forEach(([id, test]) => {
-    document.getElementById(id).innerHTML = PRODUCTS.filter(test).map(cardHTML).join('');
-  });
-  document.getElementById('f_wilaya').innerHTML = '<option value="">Choisir</option>' + WILAYAS.map(w => '<option>' + w + '</option>').join('');
-}
-renderAll();
-
-let currentMain = null;
-let currentSub = null;
-
-function selectMain(key){
-  currentMain = key;
-  document.querySelectorAll('#mainTabs .maintab').forEach(btn => {
-    const active = btn.dataset.main === key;
-    btn.className = 'maintab px-4 py-1.5 rounded-full text-sm font-medium ' + (active ? 'bg-white shadow text-gray-900' : 'text-gray-500');
-  });
-  document.getElementById('subtabs-homme').classList.toggle('hidden', key !== 'homme');
-  document.getElementById('subtabs-homme').classList.toggle('flex', key === 'homme');
-  document.getElementById('subtabs-femme').classList.toggle('hidden', key !== 'femme');
-  document.getElementById('subtabs-femme').classList.toggle('flex', key === 'femme');
-
-  ['page-tous','page-h-bas','page-h-hauts','page-h-ens','page-f-bas','page-f-hauts'].forEach(id => document.getElementById(id).classList.add('hidden'));
-
-  if (key === 'tous'){
-    document.getElementById('page-tous').classList.remove('hidden');
+function renderProducts(query = ''){
+  const grid = document.getElementById('grid-products');
+  const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+  if(filtered.length === 0){
+    grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8 text-sm">Aucun article trouvé.</div>';
   } else {
-    selectSub('bas');
+    grid.innerHTML = filtered.map(cardHTML).join('');
   }
 }
 
-function selectSub(sub){
-  currentSub = sub;
-  ['page-h-bas','page-h-hauts','page-h-ens','page-f-bas','page-f-hauts'].forEach(id => document.getElementById(id).classList.add('hidden'));
-  document.getElementById('page-tous').classList.add('hidden');
-  const pageId = 'page-' + (currentMain === 'homme' ? 'h' : 'f') + '-' + (sub === 'ensembles' ? 'ens' : sub);
-  const page = document.getElementById(pageId);
-  if (page) page.classList.remove('hidden');
-  document.querySelectorAll('#subtabs-' + currentMain + ' .subtab').forEach(btn => {
-    const active = btn.dataset.sub === sub;
-    btn.style.borderColor = active ? '#8ea492' : '#e5e7eb';
-    btn.style.background = active ? 'rgba(142,164,146,0.12)' : 'transparent';
-    btn.style.color = active ? '#5f7a63' : '#374151';
-  });
-}
-
-selectMain('tous');
+document.getElementById('f_wilaya').innerHTML = '<option value="">Choisir</option>' + WILAYAS.map(w => '<option>' + w + '</option>').join('');
+renderProducts();
 
 let currentProduct = null;
 let currentQty = 1;
